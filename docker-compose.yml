@@ -1,36 +1,22 @@
-version: '3'
+version: '3.5'
 services:
-  project-web-db:
-    image: mongo:latest
-    volumes:
-      - mongodata:/data/db
-    networks:
-      - node-network
+  frontend:
+    image: naitik1/proj-frontend
     ports:
-      - 27017:27017
-  project-frontend:
-    image: naitik1/proj-frontend:latest
-    environment:
-      PORT: 3000
-      PROXY_API: http://proj-backend:3000/
-    restart: always
-    ports:
-      - 3000:3000
-  project-web-backend:
-    image: naitik1/proj-backend:latest
-    environment:
-      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
-    restart: always
+      - "3000:3000"
     depends_on:
-      - project-web-db
-    volumes:
-      - .:/src
-    networks:
-      - node-network
+      - backend
+
+  backend:
+    image: naitik1/proj-backend
     ports:
-      - 4000:4000
-volumes:
-  mongodata:
-networks:
-  node-network:
-    driver: bridge
+      - "4000:4000"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /Users/naitiksinhsolanki/college_work

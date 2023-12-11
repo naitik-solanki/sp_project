@@ -47,7 +47,6 @@ router.post("/signin", async (req, res) => {
       : await User.findOne({
           employeeId: req.body.employeeId,
         });
-        
     console.log(user, "user");
     console.log("hello");
     !user && res.status(404).json("User not found");

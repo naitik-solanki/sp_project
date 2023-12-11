@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    tools{
-        nodejs 'nodejs'
-    }
     stages{
         stage('stage 1: git clone'){
             steps{
@@ -18,7 +15,7 @@ pipeline{
         stage('stage 3: build backend docker'){
             steps{
                 dir('backend'){
-                    sh 'docker build -t vaibhavvt/proj-backend:latest .'
+                    sh 'docker build -t naitik1/proj-backend:latest .'
                 }
             }
         }
@@ -26,7 +23,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry('', 'DockerHubCred'){
-                        sh 'docker push vaibhavvt/proj-backend:latest'
+                        sh 'docker push naitik1/proj-backend:latest'
                     }
                 }
             }

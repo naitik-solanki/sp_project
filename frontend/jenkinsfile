@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    tools{
-        nodejs 'nodejs'
-    }
     stages{
         stage('stage 1: git clone'){
             steps{
@@ -12,13 +9,13 @@ pipeline{
         }
         stage('stage 2: build'){
             steps{
-                sh 'cd backend npm install'
+                sh 'cd frontend npm install'
             }
         }
-        stage('stage 3: build backend docker'){
+        stage('stage 3: build frontend docker'){
             steps{
-                dir('backend'){
-                    sh 'docker build -t vaibhavvt/proj-backend:latest .'
+                dir('frontend'){
+                    sh 'docker build -t naitik1/proj-frontend:latest .'
                 }
             }
         }
@@ -26,10 +23,31 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry('', 'DockerHubCred'){
-                        sh 'docker push vaibhavvt/proj-backend:latest'
+                        sh 'docker push naitik1/proj-frontend:latest'
                     }
                 }
             }
         }
+        // stage('Stage 5: Clean docker images') {
+        //     steps {
+        //         script {
+        //             sh 'sudo do'
+        //         }
+        //     }
+        // }
+        // stage('stage 6: Ansible Deployment') {
+        //     steps {
+        //         ansiblePlaybook(
+        //             becomeUser: null,
+        //             colorized: true,
+        //             credentialsId: 'localhost',
+        //             disableHostKeyChecking: true,
+        //             installation: 'Ansible',
+        //             inventory: './deployment/inventory',
+        //             playbook: './deployment/deploy.yml',
+        //             sudoUser: null
+        //         )
+        //     }
+        // }
     }
 }

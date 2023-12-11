@@ -9,17 +9,17 @@ services:
     ports:
       - 27017:27017
   project-frontend:
-    image: vaibhavvt/proj-frontend:latest
+    image: naitik1/proj-frontend:latest
     environment:
       PORT: 3000
-      PROXY_API: http://project-web-backend:8000/
+      PROXY_API: http://proj-backend:3000/
     restart: always
     ports:
       - 3000:3000
   project-web-backend:
-    image: vaibhavvt/proj-backend:latest
+    image: naitik1/proj-backend:latest
     environment:
-      MONGO_URL: mongodb://project-web-db:27017
+      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
     restart: always
     depends_on:
       - project-web-db
@@ -29,10 +29,8 @@ services:
       - node-network
     ports:
       - 4000:4000
-
 volumes:
   mongodata:
-
 networks:
   node-network:
     driver: bridge

@@ -37,8 +37,8 @@ router.post("/register", async (req, res) => {
 
 /* User Login */
 router.post("/signin", async (req, res) => {
+  console.log("hello_back_end");
   try {
-    console.log("hello");
     console.log(req.body, "req");
     const user = req.body.admissionId
       ? await User.findOne({

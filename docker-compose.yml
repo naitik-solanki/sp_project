@@ -1,25 +1,20 @@
 version: '3.5'
 services:
-  # mongodb:
-  #   image: mongo
-  #   ports:
-  #     - "27017:27017"
-  #   volumes:
-  #     - /Users/naitiksinhsolanki/college_work
-
-  backend:
-    environment:
-      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
-    image: naitik1/proj-backend
-    ports:
-      - "4000:4000"
-
   frontend:
-    environment:
-      REACT_APP_API_URL: http://backend:4000
     image: naitik1/proj-frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
 
+  backend:
+    image: naitik1/proj-backend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"

@@ -19,10 +19,11 @@ function Signin() {
         try {
             console.log("hello_front_end");
             const res = await axios.post(API_URL+"api/auth/signin", userCredential);
-
+            console.log("Login Successfull");
             dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
         }
         catch (err) {
+            console.log("login failed");
             dispatch({ type: "LOGIN_FAILURE", payload: err })
             setError("Wrong Password Or Username")
         }

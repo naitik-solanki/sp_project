@@ -26,7 +26,12 @@ app.use("/api/categories", categoryRoutes);
 
 /* MongoDB connection */
 mongoose.connect(
-  "mongodb://localhost:27017/libraryapp",
+  process.env.MONGO_URL,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
   () => {
     console.log("MONGODB CONNECTED");
   }

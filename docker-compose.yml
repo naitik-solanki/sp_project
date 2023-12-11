@@ -1,6 +1,6 @@
 version: '3'
 services:
-  playground-web-db:
+  project-web-db:
     image: mongo:latest
     volumes:
       - mongodata:/data/db
@@ -8,27 +8,27 @@ services:
       - node-network
     ports:
       - 27017:27017
-  playground-web-frontend:
-    image: sathvik04/tinder-clone:latest
+  project-frontend:
+    image: vaibhavvt/proj-frontend:latest
     environment:
       PORT: 3000
-      PROXY_API: http://tinder-server:8000/
+      PROXY_API: http://project-web-backend:8000/
     restart: always
     ports:
       - 3000:3000
-  playground-web-backend:
-    image: sathvik04/tinder-server:latest
+  project-web-backend:
+    image: vaibhavvt/proj-backend:latest
     environment:
-      URI: mongodb://playground-web-db:27017
+      MONGO_URL: mongodb://project-web-db:27017
     restart: always
     depends_on:
-      - playground-web-db
+      - project-web-db
     volumes:
       - .:/src
     networks:
       - node-network
     ports:
-      - 8000:8000
+      - 4000:4000
 
 volumes:
   mongodata:

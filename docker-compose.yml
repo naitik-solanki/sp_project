@@ -8,6 +8,8 @@ services:
   #     - /Users/naitiksinhsolanki/college_work
 
   backend:
+    environment:
+      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
     image: naitik1/proj-backend
     ports:
       - "4000:4000"

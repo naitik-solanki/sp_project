@@ -17,6 +17,7 @@ function Signin() {
     const loginCall = async (userCredential, dispatch) => {
         dispatch({ type: "LOGIN_START" });
         try {
+            console.log("hello_front_end");
             const res = await axios.post(API_URL+"api/auth/signin", userCredential);
 
             dispatch({ type: "LOGIN_SUCCESS", payload: res.data });

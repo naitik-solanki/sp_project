@@ -15,10 +15,11 @@ services:
     image: naitik1/proj-backend
     ports:
       - "4000:4000"
-
     depends_on:
       - mongodb
   mongodb:
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - /Users/naitiksinhsolanki/college_work

@@ -7,6 +7,7 @@ const router = express.Router();
 /* User Registration */
 router.post("/register", async (req, res) => {
   try {
+    console.log("welcome to register");
     /* Salting and Hashing the Password */
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(req.body.password, salt);

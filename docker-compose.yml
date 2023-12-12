@@ -1,21 +1,16 @@
 version: '3.5'
 services:
   frontend:
-    environment:
-      REACT_APP_API_URL: http://localhost:4000/
-    image: naitik1/proj-frontend
+    image: naitik1/proj-frontend # dockerhub repo link
     ports:
       - "3000:3000"
     depends_on:
       - backend
 
   backend:
-    environment:
-      MONGO_URL: mongodb://mongodb:27017
-    image: naitik1/proj-backend
+    image: naitik1/proj-backend # dockerhub repo link
     ports:
       - "4000:4000"
-
     depends_on:
       - mongodb
   mongodb:

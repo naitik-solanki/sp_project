@@ -13,11 +13,11 @@ function Signin() {
     const { dispatch } = useContext(AuthContext)
 
     const API_URL = process.env.REACT_APP_API_URL
-    
+    console.log("hello_front_end");
     const loginCall = async (userCredential, dispatch) => {
         dispatch({ type: "LOGIN_START" });
         try {
-            // console.log("hello_front_end");
+            
             console.log(API_URL+"api/auth/signin");
             const res = await axios.post(API_URL+"api/auth/signin", userCredential);
             console.log("Login Successfull");

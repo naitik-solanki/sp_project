@@ -7,10 +7,12 @@ import Header from './Components/Header';
 import AdminDashboard from './Pages/Dashboard/AdminDashboard/AdminDashboard.js';
 import { useContext } from "react"
 import { AuthContext } from "./Context/AuthContext.js"
+import { Link } from '@material-ui/core';
 
 function App() {
 
   const { user } = useContext(AuthContext)
+  console.log(user);
 
   return (
     <Router>
@@ -21,13 +23,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path='/signin'>
-            {user ? (user.isAdmin ? <Redirect to='/dashboard@admin' />:<Redirect to='/dashboard@admin' />) : <Signin />}
-          </Route>
-          <Route exact path='/dashboard@admin'>
-            {user ? (user.isAdmin === false ? <AdminDashboard /> : <Redirect to='/' />) : <Redirect to='/' />}
-          </Route>
-          <Route exact path='/dashboard@admin'>
-            {user ? (user.isAdmin === true ? <AdminDashboard /> : <Redirect to='/' />) : <Redirect to='/' />}
+            {user ? (user.isAdmin ? <AdminDashboard />:<AdminDashboard />) : <Signin />}
           </Route>
           <Route exact path='/books'>
             <Allbooks />

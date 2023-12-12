@@ -12,7 +12,7 @@ function Signin() {
     const [error, setError] = useState("")
     const { dispatch } = useContext(AuthContext)
 
-    const API_URL = process.env.REACT_APP_API_URL
+    const API_URL ='http://localhost:4000/'
     console.log("hello_front_end");
     const loginCall = async (userCredential, dispatch) => {
         dispatch({ type: "LOGIN_START" });

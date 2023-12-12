@@ -11,14 +11,14 @@ services:
 
   backend:
     environment:
-      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
+      MONGO_URL: mongodb://mongodb:27017
     image: naitik1/proj-backend
     ports:
       - "4000:4000"
 
-    # depends_on:
-    #   - mongodb
-  # mongodb:
-  #   image: mongo
-  #   ports:
-  #     - "27017:27017"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"

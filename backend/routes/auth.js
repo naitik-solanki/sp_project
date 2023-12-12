@@ -9,8 +9,8 @@ router.post("/register", async (req, res) => {
   try {
     console.log("welcome to register");
     /* Salting and Hashing the Password */
-    const salt = await bcrypt.genSalt(10);
-    const hashedPass = await bcrypt.hash(req.body.password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPass = await bcrypt.hash(req.body.password, salt);
 
     /* Create a new user */
     const newuser = new User({
@@ -27,9 +27,10 @@ router.post("/register", async (req, res) => {
       password: req.body.password,
       isAdmin: req.body.isAdmin,
     });
-
+    console.log(newuser, "newuser");
     /* Save User and Return */
     const user = await newuser.save();
+    console.log("done");
     res.status(200).json(user);
   } catch (err) {
     console.log(err);

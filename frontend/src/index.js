@@ -7,9 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthContextProvider } from './Context/AuthContext';
 
 ReactDOM.render(
+  <React.StrictMode>
     <AuthContextProvider>
       <App />
-    </AuthContextProvider>,
+    </AuthContextProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

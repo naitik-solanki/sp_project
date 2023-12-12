@@ -11,7 +11,7 @@ import categoryRoutes from "./routes/categories.js";
 /* App Config */
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 4000;
+const port = 4000;
 
 /* Middlewares */
 app.use(express.json());
@@ -26,7 +26,7 @@ app.use("/api/categories", categoryRoutes);
 
 /* MongoDB connection */
 mongoose.connect(
-  process.env.MONGO_URL,
+  'mongodb://mongodb:27017', // container run karne ke liye, dusra mongodb apne database ka naam rahega
   {
     useCreateIndex: true,
     useNewUrlParser: true,

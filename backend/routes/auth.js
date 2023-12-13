@@ -2,9 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 
-const router = express.Router();
-
-const winston = require("winston")
+import winston from "winston";
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({
 	format: winston.format.combine(
@@ -18,6 +16,8 @@ const logger = winston.createLogger({
 	  new winston.transports.File({ filename: 'logs/combined.log' }),
 	],
   });
+const router = express.Router();
+
 /* User Registration */
 router.post("/register", async (req, res) => {
   try {

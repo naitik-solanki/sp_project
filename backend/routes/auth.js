@@ -71,7 +71,7 @@ router.post("/signin", async (req, res) => {
           logger.warn("Invalid Credentials");
         }
     !validPass && res.status(400).json("Wrong Password");
-    loggger.info("Login Successful");
+    logger.info("Login Successful");
     res.status(200).json(user);
 
   } catch (err) {

@@ -65,13 +65,11 @@ router.post("/signin", async (req, res) => {
           employeeId: req.body.employeeId,
         });
 
-    console.log(user, "user");
-
-    if(!user){
-      logger.warn("Invalid Credentials");
-    }
-    !user && res.status(404).json("User not found");
-    const validPass = await bcrypt.compare(req.body.password, user.password);
+        !user && res.status(404).json(err);
+        const validPass = await bcrypt.compare(req.body.password, user.password);
+        if(!validPass){
+          logger.warn("Invalid Credentials");
+        }
     !validPass && res.status(400).json("Wrong Password");
     loggger.info("Login Successful");
     res.status(200).json(user);

@@ -1,30 +1,32 @@
 import express from "express";
 import User from "../models/User.js";
+import winston from "winston";
 
-const router = express.Router()
-
-const winston = require("winston")
+// const winston = require("winston")
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({
-	format: winston.format.combine(
-	  winston.format.timestamp(),
-	  winston.format.json()	
-	),
-	transports: [
-	  new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-	  new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
-	  new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
-	  new winston.transports.File({ filename: 'logs/combined.log' }),
-	],
-  });
-/* Getting user by id */
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()	
+        ),
+        transports: [
+            new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+            new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
+            new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
+            new winston.transports.File({ filename: 'logs/combined.log' }),
+        ],
+    });
+    const router = express.Router()
+    /* Getting user by id */
 router.get("/getuser/:id", async (req, res) => {
     try {
         const user = await User.findById(req.params.id).populate("activeTransactions").populate("prevTransactions")
         const { password, updatedAt, ...other } = user._doc;
+        logger.info("Found user!");
         res.status(200).json(other);
     } 
     catch (err) {
+        logger.error("error finding the user");
         return res.status(500).json(err);
     }
 })

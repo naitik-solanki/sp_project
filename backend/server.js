@@ -26,7 +26,7 @@ app.use("/api/categories", categoryRoutes);
 
 /* MongoDB connection */
 mongoose.connect(
-  'mongodb://mongodb:27017', // container run karne ke liye, dusra mongodb apne database ka naam rahega
+  'mongodb://localhost:27017', // container run karne ke liye, dusra mongodb apne database ka naam rahega
   {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -45,3 +45,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running in PORT ${port}`);
 });
+
+export default app;

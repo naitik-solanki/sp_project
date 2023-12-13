@@ -1,24 +1,24 @@
 import express from "express"
 import Book from "../models/Book.js"
 import BookTransaction from "../models/BookTransaction.js"
+import winston from "winston";
 
-const router = express.Router()
-
-const winston = require("winston")
+// const winston = require("winston")
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({
-	format: winston.format.combine(
-	  winston.format.timestamp(),
-	  winston.format.json()	
-	),
-	transports: [
-	  new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-	  new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
-	  new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
-	  new winston.transports.File({ filename: 'logs/combined.log' }),
-	],
-  });
-router.post("/add-transaction", async (req, res) => {
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()	
+        ),
+        transports: [
+            new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+            new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
+            new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
+            new winston.transports.File({ filename: 'logs/combined.log' }),
+        ],
+    });
+    const router = express.Router()
+    router.post("/add-transaction", async (req, res) => {
     try {
         if (true) {
             const newtransaction = new BookTransaction({
@@ -34,13 +34,14 @@ router.post("/add-transaction", async (req, res) => {
             const book = Book.findById(req.body.bookId)
             await book.updateOne({ $push: { transactions: transaction._id } })
             res.status(200).json(transaction)
+            logger.info("Transaction added successfully");
         }
         else if (req.body.isAdmin === false) {
             res.status(500).json("You are not allowed to add a Transaction")
         }
     }
     catch (err) {
-        res.status(504).json(err)
+        res.status(504).json('Book not found!')
     }
 })
 

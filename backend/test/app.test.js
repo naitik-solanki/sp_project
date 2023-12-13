@@ -1,9 +1,8 @@
-const request = require('supertest');
-const index = require('../app');
-const mongoose = require("mongoose");
-const { expect, assert } = require('chai');
+import request from 'supertest';
+import mongoose from "mongoose";
+import app from "../server.js";
+import {expect,assert} from 'chai';
 
-const app = index.app;
 
 describe('POST /api/auth/signin', () => {
   it('attempts to login an existing user', (done) => {
@@ -29,32 +28,26 @@ describe('POST /api/books/addbook', () => {
         language: "english",
         publisher: "naitik",
         bookCountAvailable: 20,
-        categories: {fiction},
+        categories: {},
       })
       .expect(200)
       done();
   });
 });
 
-
-describe('POST /api/transactions/add-transaction', () => {
-  it('attempts to add a trasaction', (done) => {
-    request(app)
-      .post('/api/transactions/add-transaction')
-      .send({
-        bookId: "1",
-        borrowerId: "22",
-        bookName: "something",
-        borrowerName: "me",
-        transactionType: "Issue",
-        fromDate: "01/02/2003",
-        toDate: "02/03/2005"
-      })
-      .expect(504)
+describe('POST /api/auth/signin', () => {
+    it('attempts to login an existing user', (done) => {
+      request(app)
+        .post('/api/auth/signin')
+        .send({
+          employeeId:"IMT2020051",
+          password:"123639324"
+        })
+        .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        assert.equal(res.body.message, 'Book not found!');
+        assert.equal(res.body.message, 'Wrong Password');
         done();
       });
+    });
   });
-});

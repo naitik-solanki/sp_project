@@ -1,23 +1,23 @@
 import express from "express";
 import BookCategory from "../models/BookCategory.js";
+import winston from "winston";
 
-const router = express.Router();
-
-const winston = require("winston")
+// const winston = require("winston")
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({
-	format: winston.format.combine(
-	  winston.format.timestamp(),
+  format: winston.format.combine(
+    winston.format.timestamp(),
 	  winston.format.json()	
-	),
-	transports: [
-	  new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-	  new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
-	  new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
-	  new winston.transports.File({ filename: 'logs/combined.log' }),
-	],
+    ),
+    transports: [
+      new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+      new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
+      new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
+      new winston.transports.File({ filename: 'logs/combined.log' }),
+    ],
   });
-router.get("/allcategories", async (req, res) => {
+  const router = express.Router();
+  router.get("/allcategories", async (req, res) => {
   try {
     const categories = await BookCategory.find({});
     res.status(200).json(categories);

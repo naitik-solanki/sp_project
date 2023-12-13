@@ -2,24 +2,24 @@ import express from "express"
 import Book from "../models/Book.js"
 import BookCategory from "../models/BookCategory.js"
 
-const router = express.Router()
-
-const winston = require("winston")
+import winston from "winston";
+// const winston = require("winston")
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({
-	format: winston.format.combine(
-	  winston.format.timestamp(),
-	  winston.format.json()	
-	),
-	transports: [
-	  new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-	  new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
-	  new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
-	  new winston.transports.File({ filename: 'logs/combined.log' }),
-	],
-  });
-/* Get all books in the db */
-router.get("/allbooks", async (req, res) => {
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()	
+        ),
+        transports: [
+            new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+            new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
+            new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
+            new winston.transports.File({ filename: 'logs/combined.log' }),
+        ],
+    });
+    const router = express.Router()
+    /* Get all books in the db */
+    router.get("/allbooks", async (req, res) => {
     try {
         const books = await Book.find({}).populate("transactions").sort({ _id: -1 })
         res.status(200).json(books)
@@ -68,8 +68,10 @@ router.post("/addbook", async (req, res) => {
             const book = await newbook.save()
             await BookCategory.updateMany({ '_id': book.categories }, { $push: { books: book._id } });
             res.status(200).json(book)
+            logger.info("Book added Successfully")
         }
         catch (err) {
+            logger.error("error while adding book")
             res.status(504).json(err)
         }
     }

@@ -1,0 +1,9 @@
+{"level":"info","message":"Login successful","timestamp":"2023-12-13T09:38:30.016Z"}
+{"level":"info","message":"Login successful","timestamp":"2023-12-13T09:38:58.699Z"}
+{"level":"warn","message":"Invalid Credentials","timestamp":"2023-12-13T09:39:27.470Z"}
+{"level":"error","message":"Username doesn't exist","timestamp":"2023-12-13T09:39:57.853Z"}
+{"level":"info","message":"Login successful","timestamp":"2023-12-13T10:06:25.911Z"}
+{"level":"warn","message":"Invalid Credentials","timestamp":"2023-12-13T10:06:40.566Z"}
+{"level":"info","message":"Login successful","timestamp":"2023-12-13T10:06:40.566Z"}
+{"level":"warn","message":"Invalid Credentials","timestamp":"2023-12-13T10:07:51.232Z"}
+{"level":"info","message":"Login successful","timestamp":"2023-12-13T10:07:51.233Z"}

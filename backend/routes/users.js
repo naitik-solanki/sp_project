@@ -3,6 +3,20 @@ import User from "../models/User.js";
 
 const router = express.Router()
 
+const winston = require("winston")
+// Define a logger that logs messages to a file.
+const logger = winston.createLogger({
+	format: winston.format.combine(
+	  winston.format.timestamp(),
+	  winston.format.json()	
+	),
+	transports: [
+	  new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+	  new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
+	  new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
+	  new winston.transports.File({ filename: 'logs/combined.log' }),
+	],
+  });
 /* Getting user by id */
 router.get("/getuser/:id", async (req, res) => {
     try {

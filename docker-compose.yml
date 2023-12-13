@@ -18,4 +18,4 @@ services:
     ports:
       - "27017:27017"
     volumes: 
-      - /Users/naitiksinhsolanki/college_work/
+      - /Users/naitiksinhsolanki/college_work

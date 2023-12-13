@@ -1,8 +1,10 @@
 import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import winston from "winston";
-// const winston = require("winston")
+
+const router = express.Router();
+
+const winston = require("winston")
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({
 	format: winston.format.combine(
@@ -16,9 +18,6 @@ const logger = winston.createLogger({
 	  new winston.transports.File({ filename: 'logs/combined.log' }),
 	],
   });
-
-const router = express.Router();
-
 /* User Registration */
 router.post("/register", async (req, res) => {
   try {
@@ -45,9 +44,7 @@ router.post("/register", async (req, res) => {
     /* Save User and Return */
     const user = await newuser.save();
     res.status(200).json(user);
-    logger.info("Found user!");
   } catch (err) {
-    logger.error("Error finding user");
     console.log(err);
   }
 });
@@ -64,20 +61,16 @@ router.post("/signin", async (req, res) => {
       : await User.findOne({
           employeeId: req.body.employeeId,
         });
+    console.log(user, "user");
+    console.log("hello");
+    !user && res.status(404).json("User not found");
 
-        !user && res.status(404).json("User not found");
-        const validPass = await bcrypt.compare(req.body.password, user.password);
-        if(!validPass){
-          logger.warn("Invalid Credentials");
-        }
+    const validPass =user.password===req.body.password;
     !validPass && res.status(400).json("Wrong Password");
-    logger.info("Login Successful");
-    res.status(200).json(user);
 
+    res.status(200).json(user);
   } catch (err) {
     console.log(err);
-    res.status(400).json(err);
-		logger.error('Username doesn\'t exist');
   }
 });
 

@@ -26,7 +26,7 @@ app.use("/api/categories", categoryRoutes);
 
 /* MongoDB connection */
 mongoose.connect(
-  'mongodb://localhost:27017', // container run karne ke liye, dusra mongodb apne database ka naam rahega
+  'mongodb://mongodb:27017', // container run karne ke liye, dusra mongodb apne database ka naam rahega
   {
     useCreateIndex: true,
     useNewUrlParser: true,

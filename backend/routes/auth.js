@@ -1,7 +1,6 @@
 import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-
 import winston from "winston";
 // Define a logger that logs messages to a file.
 const logger = winston.createLogger({

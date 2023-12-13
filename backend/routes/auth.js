@@ -65,7 +65,7 @@ router.post("/signin", async (req, res) => {
           employeeId: req.body.employeeId,
         });
 
-        !user && res.status(404).json(err);
+        !user && res.status(404).json("User not found");
         const validPass = await bcrypt.compare(req.body.password, user.password);
         if(!validPass){
           logger.warn("Invalid Credentials");

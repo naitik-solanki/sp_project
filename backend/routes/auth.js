@@ -64,21 +64,16 @@ router.post("/signin", async (req, res) => {
       : await User.findOne({
           employeeId: req.body.employeeId,
         });
+
     console.log(user, "user");
-    console.log("hello");
-    if(!user && res.status(404).json("User not found")){
-      logger.error('Username doesn\'t exist');
-    }
-    const validPass =false;
-    if(user.password===req.body.password){
-      validPass= true;
-    }
-    if(!validPass && res.status(400).json({message: "Wrong Password"})){
+
+    if(!user){
       logger.warn("Invalid Credentials");
     }
-    console.log("login done");
-    logger.info("Login successful");
-    
+    !user && res.status(404).json("User not found");
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    !validPass && res.status(400).json("Wrong Password");
+    loggger.info("Login Successful");
     res.status(200).json(user);
 
   } catch (err) {

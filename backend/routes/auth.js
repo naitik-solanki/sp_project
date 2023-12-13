@@ -69,7 +69,10 @@ router.post("/signin", async (req, res) => {
     if(!user && res.status(404).json("User not found")){
       logger.error('Username doesn\'t exist');
     }
-    const validPass =user.password===req.body.password;
+    const validPass =false;
+    if(user.password===req.body.password){
+      validPass= true;
+    }
     if(!validPass && res.status(400).json({message: "Wrong Password"})){
       logger.warn("Invalid Credentials");
     }

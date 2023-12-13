@@ -80,7 +80,7 @@ router.post("/signin", async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.status(400).json(e);
+    res.status(400).json(err);
 		logger.error('Username doesn\'t exist');
   }
 });
